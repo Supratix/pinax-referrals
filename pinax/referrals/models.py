@@ -28,13 +28,13 @@ class Referral(models.Model):
         AUTH_USER_MODEL,
         on_delete=CASCADE,
         related_name="referral_codes",
-        null=True
+        null=True, on_delete=models.CASCADE
     )
     label = models.CharField(max_length=100, blank=True)
     code = models.CharField(max_length=40, unique=True)
     expired_at = models.DateTimeField(null=True, blank=True)
     redirect_to = models.CharField(max_length=512)
-    target_content_type = models.ForeignKey(ContentType, null=True, blank=True)
+    target_content_type = models.ForeignKey(ContentType, null=True, blank=True, on_delete=models.CASCADE)
     target_object_id = models.PositiveIntegerField(null=True, blank=True)
     target = GenericForeignKey(
         ct_field="target_content_type",
@@ -150,13 +150,13 @@ class Referral(models.Model):
 
 class ReferralResponse(models.Model):
 
-    referral = models.ForeignKey(Referral, related_name="responses")
+    referral = models.ForeignKey(Referral, related_name="responses", on_delete=models.CASCADE)
     session_key = models.CharField(max_length=40)
-    user = models.ForeignKey(AUTH_USER_MODEL, null=True)
+    user = models.ForeignKey(AUTH_USER_MODEL, null=True, on_delete=models.CASCADE)
     ip_address = models.CharField(max_length=45)
     action = models.CharField(max_length=128)
 
-    target_content_type = models.ForeignKey(ContentType, null=True)
+    target_content_type = models.ForeignKey(ContentType, null=True, on_delete=models.CASCADE)
     target_object_id = models.PositiveIntegerField(null=True)
     target = GenericForeignKey(
         ct_field="target_content_type",

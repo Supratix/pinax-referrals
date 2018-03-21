@@ -26,9 +26,9 @@ class Referral(models.Model):
 
     user = models.ForeignKey(
         AUTH_USER_MODEL,
-        on_delete=CASCADE,
+        on_delete=models.CASCADE,
         related_name="referral_codes",
-        null=True, on_delete=models.CASCADE
+        null=True
     )
     label = models.CharField(max_length=100, blank=True)
     code = models.CharField(max_length=40, unique=True)

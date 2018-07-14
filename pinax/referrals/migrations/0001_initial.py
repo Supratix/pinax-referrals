@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from django.db import models, migrations
 import django.utils.timezone
 from django.conf import settings
+import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
@@ -24,8 +25,8 @@ class Migration(migrations.Migration):
                 ('redirect_to', models.CharField(max_length=512)),
                 ('target_object_id', models.PositiveIntegerField(null=True, blank=True)),
                 ('created_at', models.DateTimeField(default=django.utils.timezone.now)),
-                ('target_content_type', models.ForeignKey(blank=True, to='contenttypes.ContentType', null=True)),
-                ('user', models.ForeignKey(related_name='referral_codes', to=settings.AUTH_USER_MODEL, null=True)),
+                ('target_content_type', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, blank=True, to='contenttypes.ContentType', null=True)),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='referral_codes', to=settings.AUTH_USER_MODEL, null=True)),
             ],
             options={
             },
@@ -40,9 +41,9 @@ class Migration(migrations.Migration):
                 ('action', models.CharField(max_length=128)),
                 ('target_object_id', models.PositiveIntegerField(null=True)),
                 ('created_at', models.DateTimeField(default=django.utils.timezone.now)),
-                ('referral', models.ForeignKey(related_name='responses', to='referrals.Referral')),
-                ('target_content_type', models.ForeignKey(to='contenttypes.ContentType', null=True)),
-                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL, null=True)),
+                ('referral', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='responses', to='referrals.Referral')),
+                ('target_content_type', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='contenttypes.ContentType', null=True)),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, null=True)),
             ],
             options={
             },

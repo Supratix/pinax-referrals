@@ -42,7 +42,7 @@ class Migration(migrations.Migration):
                 ('target_object_id', models.PositiveIntegerField(null=True)),
                 ('created_at', models.DateTimeField(default=django.utils.timezone.now)),
                 ('referral', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='responses', to='referrals.Referral')),
-                ('target_content_type', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='contenttypes.ContentType', null=True)),
+                ('target_content_type', models.ForeignKey(on_delete=django.db.models.deletion.SET_NULL, to='contenttypes.ContentType', null=True)),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, null=True)),
             ],
             options={

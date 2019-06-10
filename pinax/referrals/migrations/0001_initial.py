@@ -25,9 +25,10 @@ class Migration(migrations.Migration):
                 ('redirect_to', models.CharField(max_length=512)),
                 ('target_object_id', models.PositiveIntegerField(null=True, blank=True)),
                 ('created_at', models.DateTimeField(default=django.utils.timezone.now)),
-                ('target_content_type', models.ForeignKey(blank=True, to='contenttypes.ContentType', null=True, on_delete=models.SET_NULL)),
-                ('user', models.ForeignKey(related_name='referral_codes', to=settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)),
-                    ],
+                ('target_content_type', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, blank=True, to='contenttypes.ContentType', null=True)),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='referral_codes', to=settings.AUTH_USER_MODEL, null=True)),
+            ],
+
             options={
             },
             bases=(models.Model,),
@@ -41,11 +42,18 @@ class Migration(migrations.Migration):
                 ('action', models.CharField(max_length=128)),
                 ('target_object_id', models.PositiveIntegerField(null=True)),
                 ('created_at', models.DateTimeField(default=django.utils.timezone.now)),
+<<<<<<< HEAD
                 ('referral', models.ForeignKey(related_name='responses', to='referrals.Referral', on_delete=models.CASCADE)),
                 ('target_content_type', models.ForeignKey(to='contenttypes.ContentType', null=True, on_delete=models.SET_NULL)),
                 ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)),
 
                     ],
+=======
+                ('referral', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='responses', to='referrals.Referral')),
+                ('target_content_type', models.ForeignKey(on_delete=django.db.models.deletion.SET_NULL, to='contenttypes.ContentType', null=True)),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, null=True)),
+            ],
+>>>>>>> b8eedc5e2c7eed624796ccff4e0a16a10ed87802
             options={
             },
             bases=(models.Model,),

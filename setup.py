@@ -69,7 +69,11 @@ setup(
     url="http://github.com/pinax/pinax-referrals/",
     license="MIT",
     packages=find_packages(),
-    package_data={
+    install_requires=[
+        "django-appconf>=1.0.1",
+        "Django>=1.8",
+    ],
+      package_data={
         "pinax.referrals": [
             "templates/pinax/referrals/*",
         ]

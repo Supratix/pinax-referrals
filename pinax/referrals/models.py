@@ -4,7 +4,13 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.sites.models import Site
 from django.db import models
-from django.urls import reverse
+from django.db.models.deletion import CASCADE
+
+try:
+    from django.urls import reverse
+except ImportError:
+    from django.core.urlresolvers import reverse
+
 from django.utils import timezone
 from django.utils.encoding import python_2_unicode_compatible
 
@@ -19,10 +25,9 @@ class Referral(models.Model):
 
     user = models.ForeignKey(
         AUTH_USER_MODEL,
-        on_delete=models.SET_NULL,
+        on_delete=models.CASCADE,
         related_name="referral_codes",
-        null=True,
-        blank=True
+        null=True
     )
     label = models.CharField(max_length=100, blank=True)
     code = models.CharField(max_length=40, unique=True)

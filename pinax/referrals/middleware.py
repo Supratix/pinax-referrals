@@ -1,4 +1,8 @@
 from django.core.exceptions import ImproperlyConfigured
+try:
+    from django.utils.deprecation import MiddlewareMixin as MIDDLEWARE_BASE_CLASS
+except ImportError:
+    MIDDLEWARE_BASE_CLASS = object
 
 from .models import Referral
 

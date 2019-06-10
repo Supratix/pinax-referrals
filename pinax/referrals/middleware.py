@@ -6,6 +6,11 @@ except ImportError:
 
 from .models import Referral
 
+try:
+    from django.utils.deprecation import MiddlewareMixin as MIDDLEWARE_BASE_CLASS
+except ImportError:
+    MIDDLEWARE_BASE_CLASS = object
+
 
 class SessionJumpingMiddleware(MIDDLEWARE_BASE_CLASS):
 

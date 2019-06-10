@@ -1,18 +1,21 @@
 from django.conf import settings
+from django.contrib.contenttypes.models import ContentType
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404, redirect
+
 from django.http import JsonResponse
 from django.shortcuts import redirect, get_object_or_404
+
 from django.template.loader import render_to_string
 from django.views.decorators.http import require_POST
 
-from django.contrib.contenttypes.models import ContentType
+from .models import Referral
+from .utils import ensure_session_key
 
 try:
     from account.decorators import login_required
 except ImportError:
     from django.contrib.auth.decorators import login_required
-
-from .models import Referral
-from .utils import ensure_session_key
 
 
 @login_required
@@ -55,7 +58,7 @@ def process_referral(request, code):
         )
     except KeyError:
         response = redirect(referral.redirect_to)
-    if request.user.is_anonymous():
+    if request.user.is_anonymous:
         response.set_cookie(
             "pinax-referral",
             "%s:%s" % (code, session_key)
